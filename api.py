@@ -11,12 +11,12 @@ def calcula_imc():
     body = request.get_json()
     peso = float(body['peso'])
     altura = float(body['altura'])
-    resultado = round(peso / altura ** 2, 2)
-    res = make_response(jsonify({"resultado": resultado}), 200)
-
-    print(res)
-
-    return res
+    if altura > 0 and peso > 0:
+        resultado = round(peso / altura ** 2, 2)
+        res = make_response(jsonify({"resultado": resultado}), 200)
+        return res
+    else:
+        res = make_response(jsonify({"resultado": "valores incorretos"}), 400)
 
 @app.route('/')
 def home():
